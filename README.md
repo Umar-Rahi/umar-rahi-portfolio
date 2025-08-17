@@ -20,7 +20,7 @@ Built with **HTML, CSS, and JavaScript**.
 - Font Awesome Icons
 
 ## 📬 Contact
-- **Email:** urahi788@gmail.com  
+- **Email:** umar.rahi.work@gamil.com  
 - **GitHub:** [github.com/Umar-Rahi](https://github.com/Umar-Rahi)  
 - **LinkedIn:** [linkedin.com/in/umar-rahi-573003148](https://www.linkedin.com/in/umar-rahi-573003148)  
 
