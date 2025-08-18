@@ -123,28 +123,29 @@
             padding: 0;
             box-sizing: border-box;
         }
+        
         .contact-form .btn-primary {
-    background: var(--gradient-primary);
-    color: white;
-    border: none;
-    box-shadow: var(--shadow);
-}
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            box-shadow: var(--shadow);
+        }
 
-.contact-form .btn-primary:hover {
-    background: var(--gradient-secondary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-}
+        .contact-form .btn-primary:hover {
+            background: var(--gradient-secondary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
 
-/* Dark theme adjustments for contact form button */
-[data-theme="dark"] .contact-form .btn-primary {
-    background: var(--gradient-primary);
-    color: white;
-}
+        /* Dark theme adjustments for contact form button */
+        [data-theme="dark"] .contact-form .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
 
-[data-theme="dark"] .contact-form .btn-primary:hover {
-    background: var(--gradient-secondary);
-}
+        [data-theme="dark"] .contact-form .btn-primary:hover {
+            background: var(--gradient-secondary);
+        }
 
         html {
             scroll-behavior: smooth;
@@ -208,7 +209,6 @@
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
 
         /* Navigation */
         .navbar {
@@ -248,38 +248,38 @@
             padding: 0 var(--container-padding);
         }
 
-      .logo-icon {
-    width: 50px;              /* increase size a bit */
-    height: 50px;
-    border-radius: 60%;       /* make circular */
-    overflow: hidden;         /* ensures image won't overflow */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.logo-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;        /* keeps aspect ratio, fills box */
-}
-
-.logo {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--primary);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;                /* adjust space between img & text */
-    transition: var(--transition);
-}
-
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
 
         .logo:hover {
             transform: scale(1.05);
         }
 
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
 
         .nav-links {
             display: flex;
@@ -650,60 +650,70 @@
             align-items: center;
         }
 
-.profile-image { 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        /* FIXED: Profile Image Styles */
+        .profile-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: var(--space-8);
+        }
 
-/* Profile wrapper */
-.profile-img {
-    position: relative;
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    overflow: hidden;
+        .profile-img {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid var(--primary);
+            flex-shrink: 0;
+            display: block;
+            background: var(--gradient-primary);
+            animation: pulseGlow 3s infinite ease-in-out;
+            transition: transform 0.4s ease;
+        }
 
-    /* Simple border */
-    border: 6px solid var(--primary);
+        .profile-img:hover {
+            transform: scale(1.08);
+        }
 
-    /* Breathing glow animation */
-    animation: pulseGlow 3s infinite ease-in-out;
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.4s ease;
+        }
 
-    /* Smooth hover transition */
-    transition: transform 0.4s ease;
-}
+        .profile-img:hover img {
+            transform: scale(1.05);
+        }
 
-/* Hover zoom effect */
-.profile-img:hover {
-    transform: scale(1.08);  /* zoom the whole circle */
-}
+        /* Fallback icon styling - hidden by default */
+        .profile-img i.fas.fa-user {
+            font-size: 4rem;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-/* Actual image */
-.profile-img img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;       
-    object-position: center;
-    display: block;
+        /* Show icon only when image fails to load */
+        .profile-img.no-image i.fas.fa-user {
+            opacity: 1;
+        }
 
-    /* Smooth zoom transition */
-    transition: transform 0.4s ease;
-}
-
-/* Extra subtle zoom for just the image */
-.profile-img:hover img {
-    transform: scale(1.05);
-}
-
-/* Breathing glow effect */
-@keyframes pulseGlow {
-    0%   { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6); }
-    50%  { box-shadow: 0 0 25px 10px rgba(99, 102, 241, 0.3); }
-    100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6); }
-}
-
+        /* Breathing glow effect */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6); }
+            50% { box-shadow: 0 0 25px 10px rgba(99, 102, 241, 0.3); }
+            100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6); }
+        }
 
         .about-text {
             text-align: center;
@@ -861,7 +871,6 @@
             overflow: hidden;
             transition: var(--transition);
             position: relative;
-            group: hover;
         }
 
         .project-card:hover {
@@ -1189,7 +1198,6 @@
             border-radius: var(--radius-xl);
             transition: var(--transition);
             text-decoration: none; 
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .contact-item:hover {
@@ -1347,6 +1355,10 @@
                 text-align: left;
             }
             
+            .profile-image {
+                margin-bottom: 0;
+            }
+            
             .contact-content {
                 grid-template-columns: 1fr 1fr;
                 gap: var(--space-12);
@@ -1436,7 +1448,10 @@
             .profile-img {
                 width: 220px;
                 height: 220px;
-                font-size: 2.5rem;
+            }
+
+            .profile-img i.fas.fa-user {
+                font-size: 3.5rem;
             }
 
             .about-stats {
@@ -1476,7 +1491,10 @@
             .profile-img {
                 width: 180px;
                 height: 180px;
-                font-size: 2rem;
+            }
+
+            .profile-img i.fas.fa-user {
+                font-size: 3rem;
             }
 
             .about-stats {
@@ -1511,25 +1529,6 @@
                 font-size: 1rem;
             }
         }
-        .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* space between photo and name */
-}
-
-.logo-icon img {
-    width: 50px;   /* adjust size */
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-}
-
-.logo-text {
-    font-size: 1.2rem;  /* adjust for balance */
-    font-weight: 600;
-}
-
 
         /* Reduced Motion */
         @media (prefers-reduced-motion: reduce) {
@@ -1566,7 +1565,6 @@
                 background: white;
                 color: black;
             }
-            
 
             .section {
                 padding: 1rem 0;
@@ -1585,10 +1583,9 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#home" class="logo">
-               <div class="logo-icon">
-  <img src="images/logo.png" alt="My Profile Photo">
-</div>
-
+                <div class="logo-icon">
+                    <img src="images/logo.png" alt="My Profile Photo">
+                </div>
                 <span>Umar Rahi</span>
             </a>
             
@@ -1658,15 +1655,16 @@
                 <p class="section-subtitle">Passionate about creating innovative software solutions</p>
             </div>
             
-            <div class="profile-image">
-    <div class="profile-img" id="profileImg">
-        <img src="images/profile.jpg" 
-             alt="Umar Rahi" 
-             loading="lazy"
-             onerror="this.style.display='none'; this.parentElement.classList.add('no-image');">
-        <i class="fas fa-user"></i>
-    </div>
-</div>
+            <div class="about-content">
+                <div class="profile-image">
+                    <div class="profile-img" id="profileImg">
+                        <img src="images/profile.jpg" 
+                             alt="Umar Rahi" 
+                             loading="lazy"
+                             onerror="this.style.display='none'; this.parentElement.classList.add('no-image');">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
                 
                 <div class="about-text">
                     <h3>Hello! I'm Umar Rahi</h3>
@@ -1682,20 +1680,20 @@
                 </div>
             </div>
 
-           <div class="about-stats fade-in" id="statsSection">
-    <div class="stat-item">
-        <div class="stat-number" data-target="4">0</div>
-        <div class="stat-label">Years Learning</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-number" data-target="15">0</div>
-        <div class="stat-label">Technologies</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-number" data-target="10">0</div>
-        <div class="stat-label">Projects</div>
-    </div>
-</div>
+            <div class="about-stats fade-in" id="statsSection">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="4">0</div>
+                    <div class="stat-label">Years Learning</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-label">Technologies</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="10">0</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1802,8 +1800,8 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="project-card">
+            </div>
+            <div class="project-card">
                     <div class="project-image">
                         <i class="fas fa-comments"></i>
                     </div>
@@ -1822,13 +1820,14 @@
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/Umar-Rahi" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                                
                                 <i class="fab fa-github"></i>
                                 <span>View Code</span>
                             </a>
                         </div>
                     </div>
                 </div>
-            </div>
+             </div> 
         </div>
     </section>
 
@@ -2000,66 +1999,64 @@
                 </div>
                 
                 <div class="contact-info">
+                    <!-- Email -->
+                    <a href="mailto:umar.rahi.work@gmail.com" class="contact-item" target="_blank" rel="noopener noreferrer">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>umar.rahi.work@gmail.com</p>
+                        </div>
+                    </a>
 
-    <!-- Email -->
-    <a href="mailto:umar.rahi.work@gmail.com" class="contact-item" target="_blank" rel="noopener noreferrer">
-        <div class="contact-icon">
-            <i class="fas fa-envelope"></i>
-        </div>
-        <div class="contact-details">
-            <h4>Email</h4>
-            <p>umar.rahi.work@gmail.com</p>
-        </div>
-    </a>
+                    <!-- Phone -->
+                    <a href="tel:+919897286357" class="contact-item" target="_blank" rel="noopener noreferrer">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p>+91 9897286357</p>
+                        </div>
+                    </a>
 
-    <!-- Phone -->
-    <a href="tel:+919897286357" class="contact-item" target="_blank" rel="noopener noreferrer">
-        <div class="contact-icon">
-            <i class="fas fa-phone"></i>
-        </div>
-        <div class="contact-details">
-            <h4>Phone</h4>
-            <p>+91 9897286357</p>
-        </div>
-    </a>
+                    <!-- GitHub -->
+                    <a href="https://github.com/Umar-Rahi" class="contact-item" target="_blank" rel="noopener noreferrer">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>GitHub</h4>
+                            <p>github.com/Umar-Rahi</p>
+                        </div>
+                    </a>
 
-    <!-- GitHub -->
-    <a href="https://github.com/Umar-Rahi" class="contact-item" target="_blank" rel="noopener noreferrer">
-        <div class="contact-icon">
-            <i class="fab fa-github"></i>
-        </div>
-        <div class="contact-details">
-            <h4>GitHub</h4>
-            <p>github.com/Umar-Rahi</p>
-        </div>
-    </a>
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/umar-rahi-573003148" class="contact-item" target="_blank" rel="noopener noreferrer">
+                        <div class="contact-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>LinkedIn</h4>
+                            <p>Connect with me</p>
+                        </div>
+                    </a>
 
-    <!-- LinkedIn -->
-    <a href="https://www.linkedin.com/in/umar-rahi-573003148" class="contact-item" target="_blank" rel="noopener noreferrer">
-        <div class="contact-icon">
-            <i class="fab fa-linkedin"></i>
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/919897286357" class="contact-item" target="_blank" rel="noopener noreferrer">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <p>Chat on WhatsApp</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="contact-details">
-            <h4>LinkedIn</h4>
-            <p>Connect with me</p>
-        </div>
-    </a>
-
-    <!-- WhatsApp -->
-    <a href="https://wa.me/919897286357" class="contact-item" target="_blank" rel="noopener noreferrer">
-        <div class="contact-icon">
-            <i class="fab fa-whatsapp"></i>
-        </div>
-        <div class="contact-details">
-            <h4>WhatsApp</h4>
-            <p>Chat on WhatsApp</p>
-        </div>
-    </a>
-
-</div>
-
-</section>
-        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -2400,6 +2397,64 @@
             }
         }
 
+        // Stats Counter Animation
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            let startTime = null;
+            const suffix = '+';
+            
+            element.closest('.stat-item').classList.add('animating');
+            
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                
+                const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(easeOutCubic * target);
+                
+                element.textContent = current;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    element.textContent = target + suffix;
+                    element.closest('.stat-item').classList.remove('animating');
+                }
+            }
+            
+            requestAnimationFrame(step);
+        }
+
+        // Initialize Stats Animation
+        function initStatsAnimation() {
+            const statsSection = document.getElementById('statsSection');
+            const statNumbers = statsSection.querySelectorAll('.stat-number');
+            let hasAnimated = false;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasAnimated) {
+                        hasAnimated = true;
+                        
+                        statNumbers.forEach((statNumber, index) => {
+                            const target = parseInt(statNumber.getAttribute('data-target'));
+                            
+                            setTimeout(() => {
+                                animateCounter(statNumber, target, 1000);
+                            }, index * 50);
+                        });
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.5,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            observer.observe(statsSection);
+        }
+
         // Initialize Everything
         function init() {
             // Set up event listeners
@@ -2414,6 +2469,9 @@
             document.querySelectorAll('.fade-in').forEach(el => {
                 observer.observe(el);
             });
+            
+            // Initialize stats animation
+            initStatsAnimation();
             
             // Add loading animation to page
             document.body.style.opacity = '0';
@@ -2437,36 +2495,6 @@
                     0%, 50% { opacity: 1; }
                     51%, 100% { opacity: 0; }
                 }
-                
-                .notification-enter {
-                    animation: slideInRight 0.3s ease;
-                }
-                
-                .notification-exit {
-                    animation: slideOutRight 0.3s ease;
-                }
-                
-                @keyframes slideInRight {
-                    from {
-                        transform: translateX(100%);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                }
-                
-                @keyframes slideOutRight {
-                    from {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                    to {
-                        transform: translateX(100%);
-                        opacity: 0;
-                    }
-                }
             `;
             document.head.appendChild(style);
             
@@ -2482,7 +2510,6 @@
 
         // Handle resize events
         window.addEventListener('resize', () => {
-            // Close mobile menu on resize to desktop
             if (window.innerWidth > 1024) {
                 const mobileNav = document.getElementById('mobileNav');
                 const menuBtn = document.querySelector('.mobile-menu-btn');
@@ -2501,100 +2528,6 @@
                     toggleMobileMenu();
                 }
             }
-        });
-          function animateCounter(element, target, duration = 2000) {
-            let start = 0;
-            let startTime = null;
-            const suffix = '+'; // The "+" sign to add at the end
-            
-            // Add animation class for visual feedback
-            element.closest('.stat-item').classList.add('animating');
-            
-            function step(timestamp) {
-                if (!startTime) startTime = timestamp;
-                const progress = Math.min((timestamp - startTime) / duration, 1);
-                
-                // Easing function for smooth animation (easeOutCubic)
-                const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-                const current = Math.floor(easeOutCubic * target);
-                
-                element.textContent = current;
-                
-                if (progress < 1) {
-                    requestAnimationFrame(step);
-                } else {
-                    // Animation complete - add the "+" sign
-                    element.textContent = target + suffix;
-                    element.closest('.stat-item').classList.remove('animating');
-                }
-            }
-            
-            requestAnimationFrame(step);
-        }
-
-        // Intersection Observer for Stats Animation
-        function initStatsAnimation() {
-            const statsSection = document.getElementById('statsSection');
-            const statNumbers = statsSection.querySelectorAll('.stat-number');
-            let hasAnimated = false; // Flag to ensure animation runs only once
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !hasAnimated) {
-                        hasAnimated = true; // Set flag to prevent re-animation
-                        
-                        // Add a small delay between each counter for a staggered effect
-                        statNumbers.forEach((statNumber, index) => {
-                            const target = parseInt(statNumber.getAttribute('data-target'));
-                            
-                            setTimeout(() => {
-                                animateCounter(statNumber, target, 1000);
-                            }, index * 50); // 200ms delay between each counter
-                        });
-                        
-                        // Stop observing after animation starts
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.5, // Trigger when 50% of the element is visible
-                rootMargin: '0px 0px -50px 0px' // Trigger slightly before fully visible
-            });
-            
-            observer.observe(statsSection);
-        }
-
-        // Fade-in Animation for other elements
-        function initFadeInAnimation() {
-            const fadeElements = document.querySelectorAll('.fade-in');
-            
-            const fadeObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
-            
-            fadeElements.forEach(element => {
-                fadeObserver.observe(element);
-            });
-        }
-
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            initStatsAnimation();
-            initFadeInAnimation();
-            
-            console.log('🚀 Animated stats counter initialized!');
-        });
-
-        // Optional: Add some debugging
-        window.addEventListener('load', function() {
-            console.log('📊 Stats animation ready. Scroll down to see the magic!');
         });
     </script>
 
@@ -2639,7 +2572,11 @@
             "Java"
         ]
     }
-    
     </script>
 </body>
 </html>
+                                
+                
+                
+                
+                
