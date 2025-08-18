@@ -208,6 +208,7 @@
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
 
         /* Navigation */
         .navbar {
@@ -1681,20 +1682,20 @@
                 </div>
             </div>
 
-            <div class="about-stats fade-in">
-                <div class="stat-item">
-                    <div class="stat-number">4+</div>
-                    <div class="stat-label">Years Learning</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">15+</div>
-                    <div class="stat-label">Technologies</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">10+</div>
-                    <div class="stat-label">Projects</div>
-                </div>
-            </div>
+           <div class="about-stats fade-in" id="statsSection">
+    <div class="stat-item">
+        <div class="stat-number" data-target="4">0</div>
+        <div class="stat-label">Years Learning</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number" data-target="15">0</div>
+        <div class="stat-label">Technologies</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number" data-target="10">0</div>
+        <div class="stat-label">Projects</div>
+    </div>
+</div>
         </div>
     </section>
 
@@ -2501,6 +2502,100 @@
                 }
             }
         });
+          function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            let startTime = null;
+            const suffix = '+'; // The "+" sign to add at the end
+            
+            // Add animation class for visual feedback
+            element.closest('.stat-item').classList.add('animating');
+            
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                
+                // Easing function for smooth animation (easeOutCubic)
+                const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(easeOutCubic * target);
+                
+                element.textContent = current;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    // Animation complete - add the "+" sign
+                    element.textContent = target + suffix;
+                    element.closest('.stat-item').classList.remove('animating');
+                }
+            }
+            
+            requestAnimationFrame(step);
+        }
+
+        // Intersection Observer for Stats Animation
+        function initStatsAnimation() {
+            const statsSection = document.getElementById('statsSection');
+            const statNumbers = statsSection.querySelectorAll('.stat-number');
+            let hasAnimated = false; // Flag to ensure animation runs only once
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasAnimated) {
+                        hasAnimated = true; // Set flag to prevent re-animation
+                        
+                        // Add a small delay between each counter for a staggered effect
+                        statNumbers.forEach((statNumber, index) => {
+                            const target = parseInt(statNumber.getAttribute('data-target'));
+                            
+                            setTimeout(() => {
+                                animateCounter(statNumber, target, 1000);
+                            }, index * 50); // 200ms delay between each counter
+                        });
+                        
+                        // Stop observing after animation starts
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.5, // Trigger when 50% of the element is visible
+                rootMargin: '0px 0px -50px 0px' // Trigger slightly before fully visible
+            });
+            
+            observer.observe(statsSection);
+        }
+
+        // Fade-in Animation for other elements
+        function initFadeInAnimation() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            fadeElements.forEach(element => {
+                fadeObserver.observe(element);
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initStatsAnimation();
+            initFadeInAnimation();
+            
+            console.log('🚀 Animated stats counter initialized!');
+        });
+
+        // Optional: Add some debugging
+        window.addEventListener('load', function() {
+            console.log('📊 Stats animation ready. Scroll down to see the magic!');
+        });
     </script>
 
     <!-- Structured Data for SEO -->
@@ -2544,6 +2639,7 @@
             "Java"
         ]
     }
+    
     </script>
 </body>
 </html>
